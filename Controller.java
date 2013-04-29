@@ -41,7 +41,7 @@ public class Controller extends HttpServlet {
 			DBHelper helper = new DBHelper();
 			ArrayList<Listing> list = helper.search(request.getParameter("query"));
 			request.setAttribute("list", list);
-			
+			request.setAttribute("prevQuery", request.getParameter("query"));
 			dispatcher = ctx.getRequestDispatcher("/Listings.jsp");
 			dispatcher.forward(request, response);
 		}

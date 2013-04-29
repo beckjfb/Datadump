@@ -14,23 +14,7 @@ public class DBHelper {
 	
 	
 
-	public DBHelper(){
-		try{
-//			Class.forName("com.mysql.jdbc.Driver");
-//			System.out.println("Instantiated MySQL driver");
-//			Connection conn = DriverManager.getConnection("jdbc:mysql://128.192.130.24/Stackoverflow", 
-//					"root", "password123");
-//			System.out.println("Connected to MySql");
-			//		meetingsForCourse = conn.prepareStatement("select * from classScheduler.course course, classScheduler.courseRequirement creq, " +
-	//				"(Select req.reqId from classScheduler.requirement req where req.reqCourseNumber = ? AND req.reqCoursePrefix = ?) AS reqOut " +
-
-	
-			
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-	}
+	public DBHelper(){}
 	
 	public void open(){
 		try{
@@ -53,13 +37,15 @@ public class DBHelper {
 		ArrayList<Listing> list = new ArrayList<Listing>();
 		try{
 			open();
-			String preparedQuery = "SELECT Body,ParentId FROM Stackoverflow.Answers WHERE Answers.ParentId =  (SELECT Id "+
+			String preparedQuery = "SELECT Body,Score,LastEditDate FROM Stackoverflow.Answers WHERE Answers.ParentId =  (SELECT Id "+
 			"FROM Stackoverflow.Questions WHERE Id=" + parentId + ")";
 			PreparedStatement query = conn.prepareStatement(preparedQuery);
 			ResultSet rs = query.executeQuery();
 			while(rs.next()){
 				String body = rs.getString("Body");
-				list.add(new Listing(body));
+				int score = rs.getInt("Score");
+				String date = rs.getString("LastEditDate");
+				list.add(new Listing(body,score,date));
 			}
 			close();
 		} catch(Exception e){
@@ -74,7 +60,7 @@ public class DBHelper {
 		try{
 			open();
 			String[] query = input.split(" ");
-			String preparedQuery = "SELECT Id,Title,Body,Tags,LastEditDate FROM Stackoverflow.Questions WHERE Questions.Title REGEXP '(";
+			String preparedQuery = "SELECT Id,Title,Body,Tags,LastEditDate,Score FROM Stackoverflow.Questions WHERE Questions.Title REGEXP '(";
 			for(String temp: query){
 				preparedQuery += temp + ")|(";
 			}
@@ -88,7 +74,8 @@ public class DBHelper {
 				int id = rs.getInt("Id");
 				String date = rs.getString("LastEditDate");
 				String allTags = rs.getString("Tags");
-				list.add(new Listing(title,body,id,allTags,date));
+				int score = rs.getInt("Score");
+				list.add(new Listing(title,body,id,allTags,date,score));
 			}
 			close();
 		}

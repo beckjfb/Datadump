@@ -10,12 +10,13 @@ public class Listing {
 		this.Id = id;
 	}	
 	
-	public Listing(String title, String body, int id, String alltags, String date){
+	public Listing(String title, String body, int id, String alltags, String date, int score){
 		this.Title = title;
 		this.Body = body;
 		this.Id = id;
 		this.allTags = alltags;
 		this.Date = date;
+		this.Score = score;
 		Tags = new ArrayList<String>();
 		
 		String[] splits = alltags.split(">");		
@@ -23,8 +24,10 @@ public class Listing {
 			Tags.add(temp.substring(1));
 	}
 	
-	public Listing(String body) {
+	public Listing(String body, int score, String date) {
 		this.Body = body;
+		this.Score = score;
+		this.Date = date;
 	}
 	
 	private String Title;
@@ -33,6 +36,7 @@ public class Listing {
 	private String Date;
 	private String allTags;
 	private ArrayList<String> Tags;
+	private int Score;
 
 	public int getId() {
 		return Id;
@@ -79,5 +83,14 @@ public class Listing {
 	public void setTags(ArrayList<String> tags) {
 		Tags = tags;
 	}
+
+	public int getScore() {
+		return Score;
+	}
+
+	public void setScore(int score) {
+		Score = score;
+	}
+	
 	
 }
