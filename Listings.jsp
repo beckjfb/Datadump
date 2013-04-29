@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
-    
+
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
 <head>
 <meta charset=utf-8>
@@ -188,6 +189,13 @@ text-align:left;
 
 <h2>Results</h2>
 <div id="main">
+
+
+<c:forEach var="results" items="${list}">
+	<h3>${results.title}</h3>
+
+</c:forEach>
+
 
 <div class="nborder">
 <h3>Title</h3>
