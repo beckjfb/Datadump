@@ -74,7 +74,7 @@ public class DBHelper {
 		try{
 			open();
 			String[] query = input.split(" ");
-			String preparedQuery = "SELECT Id,Title,Body FROM Stackoverflow.Questions WHERE Questions.Title REGEXP '(";
+			String preparedQuery = "SELECT Id,Title,Body,Tags,LastEditDate FROM Stackoverflow.Questions WHERE Questions.Title REGEXP '(";
 			for(String temp: query){
 				preparedQuery += temp + ")|(";
 			}
@@ -86,7 +86,9 @@ public class DBHelper {
 				String title = rs.getString("Title");
 				String body = rs.getString("Body");
 				int id = rs.getInt("Id");
-				list.add(new Listing(title,body,id));
+				String date = rs.getString("LastEditDate");
+				String allTags = rs.getString("Tags");
+				list.add(new Listing(title,body,id,allTags,date));
 			}
 			close();
 		}
