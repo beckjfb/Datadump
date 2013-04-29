@@ -51,7 +51,10 @@
     <!-- Begin featured work -->
     <div id="lis">
     <div class="featuredWork">
-    <div class="add"><p>df</p></div>
+    <form name="input" action="Controller" method="get" >
+    <input type="hidden" name="id" value="${results.id}">
+    <div id="add"><input type="image" src="css/plus.png" /></div>
+    </form>
     	<h1>${results.title}</h1>
      
         <ul class="title">
