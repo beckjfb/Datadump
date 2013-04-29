@@ -131,7 +131,7 @@ h2 {
 <form name="input" action="Controller" method="get" >
 
 <input type="text" name="query" class="form" placeholder="Search away..."> <br />
-<input class="input-rounded-button" type="button" value="SEARCH" />
+<input class="input-rounded-button" type="submit" value="SEARCH" />
 
 </form>
 </div>
